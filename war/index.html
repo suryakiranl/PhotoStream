@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="favicon.ico">
+<title>PhotoStream Application</title>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+<!-- Custom styles for this template -->
+<link href="styles/cover.css" rel="stylesheet">
+<link href="styles/site.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="fb-root"></div>
+	<div id="loadingDiv"></div>
+	<script src="js/site.js"></script>
+
+	<div class="site-wrapper">
+
+		<div class="site-wrapper-inner">
+
+			<div class="cover-container">
+
+				<div class="masthead clearfix">
+					<div class="inner">
+						<h3 class="masthead-brand">PhotoStream</h3>
+						<ul class="nav masthead-nav">
+							<li class="active"><a href="#">Home</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="inner cover">
+					<h1 class="cover-heading">Welcome to PhotoStream.</h1>
+					<p class="lead">
+						You can login with your Facebook account and view your photo
+						stream here. No other distractions when you are doing that :) <br />
+						Please login using the icon below.
+					</p>
+					<p class="lead">
+						<div class="fb-login-button" data-max-rows="2" data-size="large" data-show-faces="true" data-auto-logout-link="true" data-scope="user_photos, friends_photos"></div>
+					</p>
+					<div id="viewStreamBtnDiv" style="display: none;" onclick="showModal()">
+						<button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">View My PhotoStream</button>
+					</div>
+				</div>
+
+				<div class="mastfoot">
+					<div class="inner">
+						<p>Copyright reserved 2014</p>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 style="color: #404040">Your Photos</h4>
+				</div>
+				<div class="modal-body">
+					<div id="imgDiv"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+	<script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
+</body>
+</html>
