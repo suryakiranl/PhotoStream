@@ -12,13 +12,21 @@ $(document).ready(function() {
 	console.log("Inside ready function");
 });
 
+$(document).keydown(function(e) {
+	if (e.keyCode == 37) {
+		previousImage();
+	} else if (e.keyCode == 39) {
+		nextImage();
+	}
+});
+
 // Intialize on page load.
 window.fbAsyncInit = function() {
 	FB.init({
 		appId : '290992264384747',
 		status : true, // check login status
 		cookie : true, // enable cookies to allow the server to access the
-						// session
+		// session
 		xfbml : true
 	});
 
@@ -27,8 +35,6 @@ window.fbAsyncInit = function() {
 		if (response.status === 'connected') {
 			userAuthResp = response.authResponse;
 			userToken = userAuthResp.accessToken;
-
-			console.log('userToken (in init) = ' + userToken);
 
 			sayHi();
 		} else {
@@ -78,42 +84,68 @@ function sayHi() {
 
 // Load user photos from Facebook
 function loadPhotos() {
-	console.log('userToken (in loadPhotos) = ' + userToken);
-
 	FB.api('/me/photos?access_token=' + userToken, function(response) {
 		console.log("Length of data array = " + response.data.length);
 		userPhotosResp = response;
 	});
 }
 
-// Wait for model dialog to be shown
-function showModal() {
-	setTimeout(function() {
-		changeImage();
-	}, 500);  
+function isModalVisible() {
+	return $('#imgDiv').is(':visible');
 }
 
-// Function to change the image.
-function changeImage() {
-	if($('#imgDiv').is(':visible')) {
-		var imgURL = userPhotosResp.data[imgIndex].source;
-		console.log(imgIndex + " :: New Image URL = " + imgURL);
+// Wait for model dialog to be shown
+function showModal() {
+	if (userPhotosResp.data.length === 0) {
+		blockUI('User has no photos to be displayed.');
+		
+		setTimeout(function() {
+			unblockUI();
+		}, 5000);
+		
+		setTimeout(function() {
+			$("#closeModal").trigger("click");
+		}, 500);
+	} else {
+		setTimeout(function() {
+			showImage(imgIndex);	
+		}, 500);
+	}
+
+	return false;
+}
+
+// Show the next image in the list
+function nextImage() {
+	if (isModalVisible()) {
+		imgIndex++;
+		if (imgIndex >= userPhotosResp.data.length) {
+			imgIndex = 0;
+		}
+		showImage(imgIndex);
+	}
+}
+
+// Show the previous image in the list
+function previousImage() {
+	if (isModalVisible()) {
+		imgIndex--;
+		if (imgIndex < 0) {
+			imgIndex = userPhotosResp.data.length - 1;
+		}
+		showImage(imgIndex);
+	}
+}
+
+// Function to display the image.
+function showImage(imageIndex) {
+	if(isModalVisible()) {
+		var imgURL = userPhotosResp.data[imageIndex].source;
+		console.log(imageIndex + " :: New Image URL = " + imgURL);
 
 		$("#imgDiv").empty();
 		var imgTag = "<img src='" + imgURL + "' />";
-		$("#imgDiv").append(imgTag);
-		imgIndex++;
-
-		if (imgIndex >= userPhotosResp.data.length) {
-			console.log("Max achieved. Reset now ..");
-			imgIndex = 0;
-		}
-		
-		setTimeout(function() {
-			changeImage();
-		}, 3000);  
-	} else {
-		showModal();
+		$("#imgDiv").append(imgTag);	
 	}
 }
 

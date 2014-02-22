@@ -49,8 +49,8 @@
 					<p class="lead">
 						<div class="fb-login-button" data-max-rows="2" data-size="large" data-show-faces="true" data-auto-logout-link="true" data-scope="user_photos, friends_photos"></div>
 					</p>
-					<div id="viewStreamBtnDiv" style="display: none;" onclick="showModal()">
-						<button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">View My PhotoStream</button>
+					<div id="viewStreamBtnDiv" style="display: none;">
+						<button class="btn btn-default" onclick="return showModal();" data-toggle="modal" data-target=".bs-example-modal-lg">View My PhotoStream</button>
 					</div>
 				</div>
 
@@ -64,15 +64,19 @@
 	</div>
 
 	<!-- Div containing modal div content. This is where we show images -->
-	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div id="modalDiv" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button id="closeModal" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 style="color: #404040">Your Photos</h4>
 				</div>
 				<div class="modal-body">
 					<div id="imgDiv"></div>
+					<div style="color: #404040">
+						<br/>
+						Please use arrow keys ( &lt; and &gt; ) to navigate through images	
+					</div>
 				</div>
 			</div>
 		</div>
